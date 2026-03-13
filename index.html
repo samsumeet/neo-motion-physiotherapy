@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeoMotion PhysioTherapy — Indrapuram, Ghaziabad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-tint: #f0fdfa;
+      --text: #0f172a;
+      --text-soft: #64748b;
+      --text-xsoft: #94a3b8;
+      --primary: #0d9488;
+      --primary-dark: #0f766e;
+      --primary-light: #ccfbf1;
+      --accent: #7c3aed;
+      --accent-light: #ede9fe;
+      --border: rgba(15, 23, 42, 0.07);
+      --border-strong: rgba(15, 23, 42, 0.12);
+      --shadow-xs: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow: 0 4px 16px rgba(13, 148, 136, 0.08), 0 1px 4px rgba(0,0,0,0.04);
+      --shadow-md: 0 8px 32px rgba(13, 148, 136, 0.12), 0 2px 8px rgba(0,0,0,0.05);
+      --shadow-lg: 0 20px 60px rgba(13, 148, 136, 0.15), 0 4px 16px rgba(0,0,0,0.06);
+      --radius: 20px;
+      --radius-sm: 14px;
+      --radius-xs: 10px;
+      --max-width: 1160px;
+      --header-height: 76px;
+      --grad-primary: linear-gradient(135deg, #0d9488, #7c3aed);
+      --grad-hero: linear-gradient(135deg, #0d9488 0%, #0891b2 50%, #7c3aed 100%);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    p { margin: 0 0 1rem; color: var(--text-soft); }
+    ul { margin: 0; padding-left: 0; list-style: none; color: var(--text-soft); }
+
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ── Layout ── */
+    .container {
+      width: min(calc(100% - 2.5rem), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 6rem 0;
+      scroll-margin-top: calc(var(--header-height) + 16px);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .section-header {
+      max-width: 640px;
+      margin-bottom: 3rem;
+    }
+
+    h1, h2, h3 { margin: 0 0 0.6rem; line-height: 1.15; font-weight: 800; color: var(--text); }
+
+    h1 {
+      font-size: clamp(2.8rem, 5.5vw, 4.6rem);
+      letter-spacing: -0.04em;
+    }
+
+    h2 {
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      letter-spacing: -0.03em;
+    }
+
+    h3 { font-size: 1.15rem; font-weight: 700; }
+
+    .gradient-text {
+      background: var(--grad-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(248, 250, 252, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .site-header.scrolled {
+      box-shadow: var(--shadow-xs);
+    }
+
+    .header-bar {
+      min-height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 0.75rem 0;
+    }
+
+    .brand {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--grad-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .brand-text { color: var(--text); }
+    .brand-text span { color: var(--primary); }
+
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      border-radius: var(--radius-xs);
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .nav-toggle:hover { background: var(--surface-tint); }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .nav-menu a:not(.button) {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      padding: 0.45rem 0.75rem;
+      border-radius: var(--radius-xs);
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .nav-menu a:not(.button):hover,
+    .nav-menu a:not(.button).active {
+      color: var(--primary-dark);
+      background: var(--primary-light);
+    }
+
+    /* ── Buttons ── */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 44px;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+    .button:active { transform: translateY(0); }
+
+    .button-primary {
+      background: var(--grad-primary);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(13, 148, 136, 0.3);
+    }
+
+    .button-primary:hover {
+      box-shadow: 0 8px 30px rgba(13, 148, 136, 0.4);
+      opacity: 0.95;
+    }
+
+    .button-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1.5px solid var(--border-strong);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .button-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 5rem 0 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13,148,136,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-copy p {
+      font-size: 1.05rem;
+      max-width: 540px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin: 1.8rem 0 2.2rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-xs);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .badge::before {
+      content: "✓";
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hero-visual {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .hero-card {
+      background: var(--surface);
+      padding: 0.75rem;
+      border-radius: calc(var(--radius) + 6px);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+
+    .hero-card img {
+      border-radius: var(--radius);
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .hero-card.secondary {
+      max-width: 68%;
+      margin-left: auto;
+      transform: translateY(-28px);
+    }
+
+    /* ── About ── */
+    .about-section { background: var(--surface); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-list li {
+      display: flex;
+      gap: 0.85rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .about-list li:last-child { border-bottom: 0; }
+
+    .about-list .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.25rem;
+    }
+
+    /* ── Services ── */
+    .services-section { background: var(--surface-tint); }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(13, 148, 136, 0.2);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── Therapists ── */
+    .therapist-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .therapist-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .therapist-content {
+      padding: 1.4rem 1.6rem 1.6rem;
+    }
+
+    .therapist-role {
+      color: var(--primary-dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── Stats / Why Us ── */
+    .why-section {
+      background: var(--text);
+      background-image: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .why-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(13,148,136,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(124,58,237,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .why-section .section-label {
+      background: rgba(13,148,136,0.2);
+      color: #5eead4;
+    }
+
+    .why-section .section-label::before { background: #5eead4; }
+    .why-section h2, .why-section p { color: #e2e8f0; }
+    .why-section p { color: #94a3b8; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      position: relative;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s ease;
+    }
+
+    .stat-card:hover { background: rgba(255,255,255,0.08); }
+
+    .stat-value {
+      display: block;
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      background: var(--grad-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-card p { color: #94a3b8; font-size: 0.9rem; margin: 0; }
+
+    /* ── Testimonials ── */
+    .testimonials-section { background: var(--surface); }
+
+    .testimonial-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .testimonial-card::before {
+      content: "\201C";
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-size: 4rem;
+      line-height: 1;
+      font-family: Georgia, serif;
+      color: var(--primary-light);
+      pointer-events: none;
+    }
+
+    .testimonial-card blockquote {
+      margin: 0 0 1.2rem;
+      font-size: 0.97rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .testimonial-meta {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      border-top: 1px solid var(--border);
+      padding-top: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Contact ── */
+    .contact-grid,
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-detail {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .contact-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-xs);
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-body { line-height: 1.5; }
+    .contact-detail-body strong { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-soft); display: block; margin-bottom: 0.15rem; }
+    .contact-detail-body span { color: var(--text); font-weight: 600; font-size: 0.95rem; }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+    }
+
+    .hours-table td {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .hours-table td:first-child {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hours-table tr:last-child td { border-bottom: 0; }
+
+    /* ── Forms ── */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .field-full { grid-column: 1 / -1; }
+
+    label {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.95rem;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--primary);
+      background: var(--surface);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+      outline: none;
+    }
+
+    textarea { min-height: 120px; resize: vertical; }
+
+    .error-message {
+      min-height: 1em;
+      color: #dc2626;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .success-message {
+      margin-top: 1rem;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .form-card .button { margin-top: 1.25rem; }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0 3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+      font-size: 0.95rem;
+    }
+
+    .footer p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-xsoft);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: color 0.15s ease;
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    /* ── Chatbot ── */
+    .chatbot {
+      position: fixed;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 1100;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .chatbot-toggle {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--grad-primary);
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(13,148,136,0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chatbot-toggle:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 40px rgba(13,148,136,0.5);
+    }
+
+    .chatbot-panel {
+      width: min(340px, calc(100vw - 2rem));
+      margin-bottom: 0.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      display: none;
+    }
+
+    .chatbot.open .chatbot-panel { display: block; }
+
+    .chatbot-header {
+      padding: 1rem 1.1rem 0.9rem;
+      background: var(--surface-tint);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .chatbot-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--grad-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .chatbot-header strong { display: block; font-size: 0.9rem; }
+    .chatbot-header span { color: var(--text-soft); font-size: 0.8rem; }
+
+    .chatbot-messages {
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .chat-message {
+      max-width: 88%;
+      padding: 0.65rem 0.9rem;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .chat-message.bot {
+      background: var(--bg);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .chat-message.user {
+      margin-left: auto;
+      background: var(--grad-primary);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chatbot-form {
+      display: flex;
+      gap: 0.6rem;
+      padding: 0.85rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .chatbot-form input {
+      min-width: 0;
+      border-radius: 999px;
+      padding: 0.65rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .chatbot-form .button {
+      min-height: 38px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-grid,
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-card.secondary {
+        max-width: 100%;
+        transform: none;
+      }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 700px) {
+      :root { --header-height: 68px; }
+
+      .nav-toggle { display: flex; }
+
+      .header-bar { flex-wrap: wrap; align-items: flex-start; }
+
+      .nav { width: 100%; }
+
+      .nav-menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.25rem;
+        padding: 0.5rem 0 0.75rem;
+      }
+
+      .nav-menu.open { display: flex; }
+
+      .nav-menu a:not(.button) {
+        width: 100%;
+        text-align: center;
+        padding: 0.7rem;
+      }
+
+      .nav-menu .button { width: 100%; justify-content: center; }
+
+      .card-grid,
+      .stats-grid { grid-template-columns: 1fr; }
+
+      .form-grid { grid-template-columns: 1fr; }
+
+      .section { padding: 4rem 0; }
+
+      h1 { font-size: 2.6rem; }
+      h2 { font-size: 1.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky header -->
+  <header class="site-header" id="home">
+    <div class="container header-bar">
+      <a class="brand" href="#home">
+        <div class="brand-icon">💚</div>
+        <span class="brand-text">NeoMotion <span>PhysioTherapy</span></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M3 5h14M3 10h14M3 15h14"/>
+        </svg>
+      </button>
+      <nav class="nav" aria-label="Primary navigation">
+        <div class="nav-menu" id="nav-menu">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#therapists">Therapists</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#contact">Contact</a>
+          <a class="button button-primary" href="#book">Book Appointment</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="home-hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="section-label">Indrapuram Physiotherapy Clinic</span>
+          <h1>Move Better.<br><span class="gradient-text">Live Pain-Free.</span></h1>
+          <p>NeoMotion PhysioTherapy helps active adults, professionals, and athletes recover with precise assessment, evidence-based treatment, and rehabilitation plans built around your daily life.</p>
+          <p>From acute injuries to long-term pain management — care that is clear, measurable, and personal.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#book">Book a Session</a>
+            <a class="button button-secondary" href="#services">Explore Services</a>
+          </div>
+          <div class="hero-badges" aria-label="Clinic highlights">
+            <div class="badge">Trusted care in Indrapuram</div>
+            <div class="badge">Sports rehab expertise</div>
+            <div class="badge">Personalized recovery plans</div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <img src="https://via.placeholder.com/1200x600?text=NeoMotion+Clinic" alt="NeoMotion physiotherapy clinic treatment room">
+          </div>
+          <div class="hero-card secondary">
+            <img src="https://via.placeholder.com/600x400?text=Patient+Treatment" alt="Therapist guiding a patient through treatment exercises">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section about-section" id="about">
+      <div class="container about-grid">
+        <div>
+          <div class="section-header">
+            <span class="section-label">About NeoMotion</span>
+            <h2>Modern physiotherapy built around real movement.</h2>
+            <p>NeoMotion PhysioTherapy is a clinic based in Indrapuram, Ghaziabad focused on helping people recover from pain, injury, and surgery with practical treatment that supports long-term results.</p>
+            <p>We combine hands-on care, movement analysis, and progressive exercise therapy to create treatment plans that fit your goals, schedule, and activity level.</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>What makes us different</h3>
+          <ul class="about-list">
+            <li><span class="check">✓</span> Evidence-based treatment strategies grounded in current rehabilitation practice.</li>
+            <li><span class="check">✓</span> Personalized plans designed around work demands, sport, and lifestyle.</li>
+            <li><span class="check">✓</span> Strong focus on sports rehabilitation and return-to-performance pathways.</li>
+            <li><span class="check">✓</span> Clear education so patients understand the cause of pain and the recovery plan.</li>
+            <li><span class="check">✓</span> Goal tracking and home programs that keep progress moving between visits.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section services-section" id="services">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Services</span>
+          <h2>Focused treatment for pain, recovery, and performance.</h2>
+          <p>Each session is tailored to your diagnosis, symptoms, and movement goals — blending manual therapy, therapeutic exercise, and education for lasting results.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card service-card" data-service="Manual Therapy">
+            <div class="service-icon" aria-hidden="true">👐</div>
+            <h3>Manual Therapy</h3>
+            <p>Targeted hands-on techniques to improve joint mobility, reduce stiffness, and ease pain.</p>
+          </article>
+          <article class="card service-card" data-service="Sports Injury Rehabilitation">
+            <div class="service-icon" aria-hidden="true">🏃</div>
+            <h3>Sports Injury Rehabilitation</h3>
+            <p>Structured rehab plans for sprains, strains, overuse issues, and return-to-sport readiness.</p>
+          </article>
+          <article class="card service-card" data-service="Post-surgery Rehabilitation">
+            <div class="service-icon" aria-hidden="true">🦿</div>
+            <h3>Post-surgery Rehabilitation</h3>
+            <p>Guided recovery after orthopedic procedures with safe progression and functional milestones.</p>
+          </article>
+          <article class="card service-card" data-service="Back and Neck Pain Management">
+            <div class="service-icon" aria-hidden="true">🧍</div>
+            <h3>Back and Neck Pain Management</h3>
+            <p>Assessment and treatment for persistent spinal pain, posture issues, and mobility restrictions.</p>
+          </article>
+          <article class="card service-card" data-service="Posture and Ergonomic Training">
+            <div class="service-icon" aria-hidden="true">💼</div>
+            <h3>Posture &amp; Ergonomic Training</h3>
+            <p>Workstation guidance and movement coaching to reduce strain during daily routines.</p>
+          </article>
+          <article class="card service-card" data-service="Home Exercise Programs">
+            <div class="service-icon" aria-hidden="true">📋</div>
+            <h3>Home Exercise Programs</h3>
+            <p>Simple, effective exercise plans that support recovery and prevent symptoms returning.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Therapists -->
+    <section class="section" id="therapists">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Therapists</span>
+          <h2>Experienced clinicians with a patient-first approach.</h2>
+          <p>Our therapists combine clinical precision with practical coaching — so treatment feels structured, supportive, and easy to apply outside the clinic.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card therapist-card">
+            <img src="https://via.placeholder.com/500x375?text=Dr.+Lena+Hartmann" alt="Dr. Lena Hartmann, physiotherapist">
+            <div class="therapist-content">
+              <p class="therapist-role">Senior Physiotherapist · Sports Rehab</p>
+              <h3>Dr. Lena Hartmann</h3>
+              <p>Works with runners, football players, and active adults recovering from lower-limb injuries — blending load management, manual therapy, and performance-focused rehab.</p>
+            </div>
+          </article>
+          <article class="card therapist-card">
+            <img src="https://via.placeholder.com/500x375?text=Jonas+Weber" alt="Jonas Weber, physiotherapist">
+            <div class="therapist-content">
+              <p class="therapist-role">Physiotherapist · Spine &amp; Posture Care</p>
+              <h3>Jonas Weber</h3>
+              <p>Specializes in back pain, neck pain, and desk-related strain — focusing on movement confidence, ergonomic coaching, and progressive plans that fit busy schedules.</p>
+            </div>
+          </article>
+          <article class="card therapist-card">
+            <img src="https://via.placeholder.com/500x375?text=Mira+Keller" alt="Mira Keller, physiotherapist">
+            <div class="therapist-content">
+              <p class="therapist-role">Physiotherapist · Post-surgical Recovery</p>
+              <h3>Mira Keller</h3>
+              <p>Supports patients after orthopedic surgery with calm, structured rehabilitation — prioritizing safe progression, clear education, and measurable weekly goals.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Us / Stats -->
+    <section class="section why-section" id="why-us">
+      <div class="container" style="position:relative;z-index:1">
+        <div class="section-header">
+          <span class="section-label">Why Choose Us</span>
+          <h2>Trusted care shaped by evidence, empathy, and consistent results.</h2>
+          <p>We believe the best physiotherapy is clinically rigorous and easy to apply in the real world — transparent, goal-oriented, and designed to keep you progressing between sessions.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-value">5+</span>
+            <p>Years serving Indrapuram, Ghaziabad with modern physiotherapy care.</p>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">1000+</span>
+            <p>Patients treated through injury recovery, surgery rehab, and pain management.</p>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">100%</span>
+            <p>Certified physiotherapists committed to patient-centric, evidence-based practice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials-section" id="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Testimonials</span>
+          <h2>What patients say after working with NeoMotion.</h2>
+          <p>Real outcomes from real people — here's the kind of experience our patients describe.</p>
+        </div>
+        <div class="card-grid">
+          <article class="testimonial-card">
+            <blockquote>"After months of recurring shoulder pain, I finally understood what was causing it and how to fix it. The plan was simple, targeted, and it worked."</blockquote>
+            <div class="testimonial-meta">Anna K. &nbsp;·&nbsp; Marketing Consultant</div>
+          </article>
+          <article class="testimonial-card">
+            <blockquote>"My knee rehab after surgery felt organized from day one. Every session had a purpose, and I could see measurable progress week by week."</blockquote>
+            <div class="testimonial-meta">Felix R. &nbsp;·&nbsp; Amateur Football Player</div>
+          </article>
+          <article class="testimonial-card">
+            <blockquote>"The clinic made chronic back pain feel manageable again. I appreciated the hands-on treatment and clear exercises I could do at home."</blockquote>
+            <div class="testimonial-meta">Sophie L. &nbsp;·&nbsp; Software Engineer</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact" style="background: var(--surface-tint)">
+      <div class="container contact-grid">
+        <div>
+          <div class="section-header">
+            <span class="section-label">Contact</span>
+            <h2>Reach us directly or send a message.</h2>
+            <p>Questions about treatment, availability, or whether physio is right for you? We'll point you in the right direction.</p>
+          </div>
+          <div class="info-card">
+            <div class="contact-detail">
+              <div class="contact-icon">📍</div>
+              <div class="contact-detail-body">
+                <strong>Address</strong>
+                <span>Indrapuram, Ghaziabad, Uttar Pradesh, India</span>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-icon">📞</div>
+              <div class="contact-detail-body">
+                <strong>Phone</strong>
+                <span>+91 98765 43210</span>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-icon">✉️</div>
+              <div class="contact-detail-body">
+                <strong>Email</strong>
+                <span>info@neomotion-physio.in</span>
+              </div>
+            </div>
+            <table class="hours-table" aria-label="Opening hours">
+              <tbody>
+                <tr><td>Monday</td><td>08:00 – 18:00</td></tr>
+                <tr><td>Tuesday</td><td>08:00 – 18:00</td></tr>
+                <tr><td>Wednesday</td><td>08:00 – 19:00</td></tr>
+                <tr><td>Thursday</td><td>08:00 – 19:00</td></tr>
+                <tr><td>Friday</td><td>08:00 – 16:00</td></tr>
+                <tr><td>Saturday</td><td>09:00 – 13:00</td></tr>
+                <tr><td>Sunday</td><td>Closed</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="form-card">
+          <span class="section-label">Send a Message</span>
+          <form id="contact-form" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="contact-name">Full Name</label>
+                <input id="contact-name" name="fullName" type="text" placeholder="Your name" required>
+                <span class="error-message" data-error-for="fullName"></span>
+              </div>
+              <div class="field">
+                <label for="contact-email">Email</label>
+                <input id="contact-email" name="email" type="email" placeholder="you@email.com" required>
+                <span class="error-message" data-error-for="email"></span>
+              </div>
+              <div class="field">
+                <label for="contact-phone">Phone</label>
+                <input id="contact-phone" name="phone" type="tel" inputmode="tel" placeholder="+91 ..." required>
+                <span class="error-message" data-error-for="phone"></span>
+              </div>
+              <div class="field">
+                <label for="contact-subject">Subject</label>
+                <input id="contact-subject" name="subject" type="text" placeholder="How can we help?">
+                <span class="error-message" data-error-for="subject"></span>
+              </div>
+              <div class="field field-full">
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" name="message" placeholder="Tell us more..." required></textarea>
+                <span class="error-message" data-error-for="message"></span>
+              </div>
+            </div>
+            <button class="button button-primary" type="submit">Send Message →</button>
+            <div class="success-message" id="contact-success" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Book -->
+    <section class="section" id="book">
+      <div class="container booking-grid">
+        <div>
+          <div class="section-header">
+            <span class="section-label">Book an Appointment</span>
+            <h2>Request a session in a few quick steps.</h2>
+            <p>Tell us which service you need and when you'd like to visit. We'll confirm your booking by email or phone.</p>
+          </div>
+          <div class="info-card">
+            <h3>Before you book</h3>
+            <p style="margin-top:0.5rem">Please share the service you're interested in, a preferred date and time, and a contact method so the clinic can follow up.</p>
+            <p style="margin-bottom:0">If your pain is severe or urgent, please seek appropriate medical care immediately.</p>
+          </div>
+        </div>
+        <div class="form-card">
+          <span class="section-label">Booking Request</span>
+          <form id="booking-form" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="booking-name">Name</label>
+                <input id="booking-name" name="name" type="text" placeholder="Your name" required>
+                <span class="error-message" data-error-for="name"></span>
+              </div>
+              <div class="field">
+                <label for="booking-email">Email</label>
+                <input id="booking-email" name="email" type="email" placeholder="you@email.com" required>
+                <span class="error-message" data-error-for="email"></span>
+              </div>
+              <div class="field">
+                <label for="booking-phone">Phone</label>
+                <input id="booking-phone" name="phone" type="tel" inputmode="tel" placeholder="+91 ..." required>
+                <span class="error-message" data-error-for="phone"></span>
+              </div>
+              <div class="field">
+                <label for="booking-service">Preferred Service</label>
+                <select id="booking-service" name="service" required>
+                  <option value="">Select a service</option>
+                </select>
+                <span class="error-message" data-error-for="service"></span>
+              </div>
+              <div class="field">
+                <label for="booking-date">Preferred Date</label>
+                <input id="booking-date" name="date" type="date" required>
+                <span class="error-message" data-error-for="date"></span>
+              </div>
+              <div class="field">
+                <label for="booking-time">Preferred Time</label>
+                <input id="booking-time" name="time" type="time" required>
+                <span class="error-message" data-error-for="time"></span>
+              </div>
+              <div class="field field-full">
+                <label for="booking-message">Notes (optional)</label>
+                <textarea id="booking-message" name="message" placeholder="Anything we should know before your visit..."></textarea>
+                <span class="error-message" data-error-for="message"></span>
+              </div>
+            </div>
+            <button class="button button-primary" type="submit">Request Appointment →</button>
+            <div class="success-message" id="booking-success" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-brand">NeoMotion PhysioTherapy</div>
+        <p>&copy; <span id="current-year"></span> NeoMotion PhysioTherapy, Indrapuram, Ghaziabad. For informational purposes only — not a substitute for professional medical advice.</p>
+      </div>
+      <nav class="footer-links" aria-label="Legal links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Sitemap</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Chatbot widget -->
+  <aside class="chatbot" id="chatbot">
+    <div class="chatbot-panel" aria-live="polite" aria-label="NeoMotion AI Assistant">
+      <div class="chatbot-header">
+        <div class="chatbot-avatar">💬</div>
+        <div>
+          <strong>NeoMotion Assistant</strong>
+          <span>I can help you book a session</span>
+        </div>
+      </div>
+      <div class="chatbot-messages" id="chatbot-messages"></div>
+      <form class="chatbot-form" id="chatbot-form">
+        <input id="chatbot-input" type="text" placeholder="Type your answer..." aria-label="Chat message">
+        <button class="button button-primary" type="submit">Send</button>
+      </form>
+    </div>
+    <button class="chatbot-toggle" id="chatbot-toggle" type="button" aria-expanded="false" aria-controls="chatbot" aria-label="Open assistant">💬</button>
+  </aside>
+
+  <script>
+    // ── Validation helpers ──────────────────────────
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const minPhoneDigits = 7;
+    const getPhoneDigits = (v) => v.replace(/\D/g, "");
+
+    function validateContactForm(d) {
+      const e = {};
+      if (!d.fullName.trim()) e.fullName = "Please enter your full name.";
+      if (!emailPattern.test(d.email.trim())) e.email = "Please enter a valid email.";
+      if (getPhoneDigits(d.phone).length < minPhoneDigits) e.phone = "Please enter a valid phone number.";
+      if (!d.message.trim()) e.message = "Please enter your message.";
+      return e;
+    }
+
+    function validateBookingForm(d) {
+      const e = {};
+      if (!d.name.trim()) e.name = "Please enter your name.";
+      if (!emailPattern.test(d.email.trim())) e.email = "Please enter a valid email.";
+      if (getPhoneDigits(d.phone).length < minPhoneDigits) e.phone = "Please enter a valid phone number.";
+      if (!d.service.trim()) e.service = "Please select a service.";
+      if (!d.date) e.date = "Please choose a preferred date.";
+      if (!d.time) e.time = "Please choose a preferred time.";
+      return e;
+    }
+
+    function renderErrors(form, errors) {
+      form.querySelectorAll("[data-error-for]").forEach((node) => {
+        node.textContent = errors[node.getAttribute("data-error-for")] || "";
+      });
+    }
+
+    // ── Populate service dropdown ───────────────────
+    function populateServiceOptions() {
+      const names = Array.from(document.querySelectorAll(".service-card"))
+        .map((c) => c.dataset.service).filter(Boolean);
+      const sel = document.getElementById("booking-service");
+      names.forEach((s) => {
+        const o = document.createElement("option");
+        o.value = s; o.textContent = s;
+        sel.appendChild(o);
+      });
+      return names;
+    }
+    const services = populateServiceOptions();
+
+    // ── Contact form ────────────────────────────────
+    const contactForm = document.getElementById("contact-form");
+    const contactSuccess = document.getElementById("contact-success");
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(contactForm));
+      const errors = validateContactForm(data);
+      renderErrors(contactForm, errors);
+      contactSuccess.textContent = "";
+      if (!Object.keys(errors).length) {
+        contactSuccess.textContent = "✓ Thank you, we'll get back to you soon.";
+        contactForm.reset();
+      }
+    });
+
+    // ── Booking form ────────────────────────────────
+    const bookingForm = document.getElementById("booking-form");
+    const bookingSuccess = document.getElementById("booking-success");
+    document.getElementById("booking-date").min = new Date().toISOString().split("T")[0];
+    bookingForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(bookingForm));
+      const errors = validateBookingForm(data);
+      renderErrors(bookingForm, errors);
+      bookingSuccess.textContent = "";
+      if (!Object.keys(errors).length) {
+        bookingSuccess.textContent = "✓ Booking request received. We'll confirm via email.";
+        bookingForm.reset();
+      }
+    });
+
+    // ── Mobile nav ──────────────────────────────────
+    const navToggle = document.querySelector(".nav-toggle");
+    const navMenu = document.getElementById("nav-menu");
+    navToggle.addEventListener("click", () => {
+      const open = navMenu.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", String(open));
+    });
+    navMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navMenu.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    // ── Active nav on scroll ────────────────────────
+    const navLinks = Array.from(navMenu.querySelectorAll("a[href^='#']"));
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((l) => l.classList.toggle("active", l.getAttribute("href") === `#${entry.target.id}`));
+        }
+      });
+    }, { rootMargin: "-45% 0px -45% 0px", threshold: 0.01 });
+    document.querySelectorAll("main section[id], header[id]").forEach((s) => sectionObserver.observe(s));
+
+    // ── Header scroll shadow ────────────────────────
+    const header = document.querySelector(".site-header");
+    window.addEventListener("scroll", () => header.classList.toggle("scrolled", window.scrollY > 10), { passive: true });
+
+    // ── Year ────────────────────────────────────────
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+
+    // ── Chatbot ─────────────────────────────────────
+    const chatbot = document.getElementById("chatbot");
+    const chatbotToggle = document.getElementById("chatbot-toggle");
+    const chatbotMessages = document.getElementById("chatbot-messages");
+    const chatbotForm = document.getElementById("chatbot-form");
+    const chatbotInput = document.getElementById("chatbot-input");
+
+    const chatbotQuestions = [
+      { key: "name", prompt: "Hi there! What's your name?" },
+      { key: "service", prompt: `Which service do you need? Options: ${services.join(", ")}.` },
+      { key: "date", prompt: "What date would you like to visit?" },
+      { key: "time", prompt: "What time works best for you?" },
+      { key: "contact", prompt: "Please share your email or phone so we can confirm your booking." }
+    ];
+
+    let chatbotStep = 0, chatbotData = {};
+
+    function appendMsg(text, sender) {
+      const msg = document.createElement("div");
+      msg.className = `chat-message ${sender}`;
+      msg.textContent = text;
+      chatbotMessages.appendChild(msg);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function resetChat() {
+      chatbotMessages.innerHTML = "";
+      chatbotStep = 0; chatbotData = {};
+      appendMsg("Hello! I can help you start a booking request.", "bot");
+      appendMsg(chatbotQuestions[0].prompt, "bot");
+    }
+
+    chatbotToggle.addEventListener("click", () => {
+      const open = chatbot.classList.toggle("open");
+      chatbotToggle.setAttribute("aria-expanded", String(open));
+      if (open && !chatbotMessages.children.length) resetChat();
+      if (open) chatbotInput.focus();
+    });
+
+    chatbotForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const answer = chatbotInput.value.trim();
+      if (!answer) return;
+      appendMsg(answer, "user");
+      chatbotData[chatbotQuestions[chatbotStep].key] = answer;
+      chatbotInput.value = "";
+      chatbotStep++;
+      if (chatbotStep < chatbotQuestions.length) {
+        appendMsg(chatbotQuestions[chatbotStep].prompt, "bot");
+        return;
+      }
+      appendMsg(`Thanks ${chatbotData.name}! I've noted your request for ${chatbotData.service} on ${chatbotData.date} at ${chatbotData.time}. We'll reach you at ${chatbotData.contact} to confirm.`, "bot");
+      window.setTimeout(resetChat, 2000);
+    });
+  </script>
+</body>
+</html>
