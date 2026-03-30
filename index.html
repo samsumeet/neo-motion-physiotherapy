@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeoMotion PhysioTherapy — Indrapuram, Ghaziabad</title>
+  <title>NeoMotion PhysioTherapy — Ghaziabad</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     :root {
       --bg: #f8fafc;
@@ -47,6 +48,7 @@
       color: var(--text);
       background: var(--bg);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     img { display: block; max-width: 100%; }
@@ -283,7 +285,7 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
       gap: 3rem;
       align-items: center;
       position: relative;
@@ -338,28 +340,157 @@
     }
 
     .hero-visual {
-      display: grid;
-      gap: 1rem;
+      position: relative;
+      display: flex;
+      justify-content: center;
     }
 
-    .hero-card {
+    .hero-carousel {
+      width: min(100%, 420px);
       background: var(--surface);
       padding: 0.75rem;
       border-radius: calc(var(--radius) + 6px);
       box-shadow: var(--shadow-lg);
       border: 1px solid rgba(255,255,255,0.8);
+      position: relative;
     }
 
-    .hero-card img {
+    .hero-carousel-viewport {
+      position: relative;
       border-radius: var(--radius);
-      width: 100%;
-      object-fit: cover;
+      overflow: hidden;
+      min-height: 360px;
+      aspect-ratio: 4 / 5;
     }
 
-    .hero-card.secondary {
-      max-width: 68%;
-      margin-left: auto;
-      transform: translateY(-28px);
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      z-index: 1;
+    }
+
+    .hero-slide-media {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #dbeceb;
+      overflow: hidden;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      transform: translateZ(0);
+    }
+
+    .hero-slide.room img { object-position: center 52%; }
+    .hero-slide.guide img { object-position: center 32%; }
+    .hero-slide.therapy img { object-position: center 26%; }
+
+    .hero-slide-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(7, 31, 36, 0.06) 30%, rgba(7, 31, 36, 0.58) 100%);
+      pointer-events: none;
+    }
+
+    .hero-slide-caption {
+      position: absolute;
+      left: 0.9rem;
+      right: 0.9rem;
+      bottom: 0.9rem;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      padding: 0.72rem 0.82rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 16px 32px rgba(14, 28, 48, 0.18);
+      backdrop-filter: blur(10px);
+      color: var(--text);
+      text-align: left;
+    }
+
+    .hero-slide-caption strong {
+      font-size: 0.92rem;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .hero-slide-caption span {
+      font-size: 0.78rem;
+      line-height: 1.35;
+      color: var(--text-soft);
+    }
+
+    .hero-carousel-control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text);
+      box-shadow: var(--shadow-xs);
+      opacity: 1;
+    }
+
+    .hero-carousel-control:hover {
+      background: var(--primary-light);
+      border-color: rgba(13, 148, 136, 0.2);
+    }
+
+    .hero-carousel-control.carousel-control-prev { left: 0.9rem; }
+    .hero-carousel-control.carousel-control-next { right: 0.9rem; }
+
+    .hero-carousel-dots.carousel-indicators {
+      margin: 0;
+      bottom: 0.9rem;
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.35rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      width: fit-content;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+    }
+
+    .hero-carousel-dot {
+      width: 10px;
+      height: 10px;
+      border: 0;
+      margin: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.58);
+      opacity: 1;
+    }
+
+    .hero-carousel-dot.active {
+      background: #fff;
+      transform: scale(1.15);
     }
 
     /* ── About ── */
@@ -445,6 +576,10 @@
       aspect-ratio: 4 / 3;
       object-fit: cover;
       border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .therapist-card img.center-photo {
+      object-position: center center;
     }
 
     .therapist-content {
@@ -606,6 +741,7 @@
     .contact-detail-body { line-height: 1.5; }
     .contact-detail-body strong { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-soft); display: block; margin-bottom: 0.15rem; }
     .contact-detail-body span { color: var(--text); font-weight: 600; font-size: 0.95rem; }
+    .contact-detail-body a { color: var(--primary-dark); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
 
     .hours-table {
       width: 100%;
@@ -871,9 +1007,16 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .hero-card.secondary {
-        max-width: 100%;
-        transform: none;
+      .hero-carousel {
+        width: min(100%, 430px);
+        margin: 0 auto;
+      }
+
+      .hero-slide {
+      }
+
+      .hero-slide-media {
+        min-height: 340px;
       }
 
       .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -914,6 +1057,21 @@
 
       .section { padding: 4rem 0; }
 
+      .hero-slide-media {
+        min-height: 300px;
+      }
+
+      .hero-slide-caption {
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+      }
+
+      .hero-carousel-control {
+        width: 34px;
+        height: 34px;
+      }
+
       h1 { font-size: 2.6rem; }
       h2 { font-size: 1.9rem; }
     }
@@ -953,7 +1111,7 @@
     <section class="hero" id="home-hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="section-label">Indrapuram Physiotherapy Clinic</span>
+          <span class="section-label">Clinic in Ghaziabad</span>
           <h1>Move Better.<br><span class="gradient-text">Live Pain-Free.</span></h1>
           <p>NeoMotion PhysioTherapy helps active adults, professionals, and athletes recover with precise assessment, evidence-based treatment, and rehabilitation plans built around your daily life.</p>
           <p>From acute injuries to long-term pain management — care that is clear, measurable, and personal.</p>
@@ -962,17 +1120,53 @@
             <a class="button button-secondary" href="#services">Explore Services</a>
           </div>
           <div class="hero-badges" aria-label="Clinic highlights">
-            <div class="badge">Trusted care in Indrapuram</div>
+            <div class="badge">Trusted care in Ghaziabad</div>
             <div class="badge">Sports rehab expertise</div>
             <div class="badge">Personalized recovery plans</div>
           </div>
         </div>
         <div class="hero-visual">
-          <div class="hero-card">
-            <img src="https://via.placeholder.com/1200x600?text=NeoMotion+Clinic" alt="NeoMotion physiotherapy clinic treatment room">
-          </div>
-          <div class="hero-card secondary">
-            <img src="https://via.placeholder.com/600x400?text=Patient+Treatment" alt="Therapist guiding a patient through treatment exercises">
+          <div id="heroCarousel" class="hero-carousel" aria-label="Clinic photos carousel">
+            <div class="hero-carousel-viewport">
+              <div class="hero-slide active room">
+                <div class="hero-slide-media">
+                  <img src="img/IMG_20260316_192809_721.WEBP" alt="NeoMotion PhysioTherapy treatment room with exercise equipment and privacy curtains" loading="eager" fetchpriority="high" decoding="async">
+                  <div class="hero-slide-caption">
+                    <strong>Clinic Treatment Room</strong>
+                    <span>Equipped rehab space for guided exercise, recovery, and private sessions.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hero-slide guide">
+                <div class="hero-slide-media">
+                  <img src="img/IMG_20260322_192838.JPG" alt="Therapist guiding a patient during hands-on physiotherapy treatment at NeoMotion PhysioTherapy" loading="lazy" decoding="async">
+                  <div class="hero-slide-caption">
+                    <strong>Therapist-Guided Care</strong>
+                    <span>Hands-on treatment focused on pain relief and better movement quality.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hero-slide therapy">
+                <div class="hero-slide-media">
+                  <img src="img/IMG_20260321_184011.JPG" alt="Therapist performing cupping and lamp-assisted treatment for a patient at NeoMotion PhysioTherapy" loading="lazy" decoding="async">
+                  <div class="hero-slide-caption">
+                    <strong>Targeted Therapy Session</strong>
+                    <span>Focused in-clinic treatment for pain relief, circulation, and recovery support.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hero-carousel-dots carousel-indicators">
+              <button class="hero-carousel-dot active" type="button" data-slide-to="0" aria-label="Show photo 1" aria-current="true"></button>
+              <button class="hero-carousel-dot" type="button" data-slide-to="1" aria-label="Show photo 2"></button>
+              <button class="hero-carousel-dot" type="button" data-slide-to="2" aria-label="Show photo 3"></button>
+            </div>
+            <button class="hero-carousel-control carousel-control-prev" type="button" data-slide-dir="prev" aria-label="Previous photo">
+              <span aria-hidden="true">‹</span>
+            </button>
+            <button class="hero-carousel-control carousel-control-next" type="button" data-slide-dir="next" aria-label="Next photo">
+              <span aria-hidden="true">›</span>
+            </button>
           </div>
         </div>
       </div>
@@ -985,7 +1179,7 @@
           <div class="section-header">
             <span class="section-label">About NeoMotion</span>
             <h2>Modern physiotherapy built around real movement.</h2>
-            <p>NeoMotion PhysioTherapy is a clinic based in Indrapuram, Ghaziabad focused on helping people recover from pain, injury, and surgery with practical treatment that supports long-term results.</p>
+            <p>NeoMotion PhysioTherapy is a clinic based in Ghaziabad focused on helping people recover from pain, injury, and surgery with practical treatment that supports long-term results.</p>
             <p>We combine hands-on care, movement analysis, and progressive exercise therapy to create treatment plans that fit your goals, schedule, and activity level.</p>
           </div>
         </div>
@@ -1055,26 +1249,18 @@
         </div>
         <div class="card-grid">
           <article class="card therapist-card">
-            <img src="https://via.placeholder.com/500x375?text=Dr.+Lena+Hartmann" alt="Dr. Lena Hartmann, physiotherapist">
-            <div class="therapist-content">
-              <p class="therapist-role">Senior Physiotherapist · Sports Rehab</p>
-              <h3>Dr. Lena Hartmann</h3>
-              <p>Works with runners, football players, and active adults recovering from lower-limb injuries — blending load management, manual therapy, and performance-focused rehab.</p>
-            </div>
-          </article>
-          <article class="card therapist-card">
-            <img src="https://via.placeholder.com/500x375?text=Jonas+Weber" alt="Jonas Weber, physiotherapist">
+            <img src="img/IMG_20260316_162444_948.WEBP" alt="Bablu Maurya seated in the NeoMotion PhysioTherapy clinic">
             <div class="therapist-content">
               <p class="therapist-role">Physiotherapist · Spine &amp; Posture Care</p>
-              <h3>Jonas Weber</h3>
+              <h3>Bablu Maurya</h3>
               <p>Specializes in back pain, neck pain, and desk-related strain — focusing on movement confidence, ergonomic coaching, and progressive plans that fit busy schedules.</p>
             </div>
           </article>
           <article class="card therapist-card">
-            <img src="https://via.placeholder.com/500x375?text=Mira+Keller" alt="Mira Keller, physiotherapist">
+            <img class="center-photo" src="img/IMG-20260312-WA0038.jpg" alt="Aakanskha Maurya seated in the NeoMotion PhysioTherapy clinic">
             <div class="therapist-content">
               <p class="therapist-role">Physiotherapist · Post-surgical Recovery</p>
-              <h3>Mira Keller</h3>
+              <h3>Aakanskha Maurya</h3>
               <p>Supports patients after orthopedic surgery with calm, structured rehabilitation — prioritizing safe progression, clear education, and measurable weekly goals.</p>
             </div>
           </article>
@@ -1093,7 +1279,7 @@
         <div class="stats-grid">
           <div class="stat-card">
             <span class="stat-value">5+</span>
-            <p>Years serving Indrapuram, Ghaziabad with modern physiotherapy care.</p>
+            <p>Years serving patients across Ghaziabad with modern physiotherapy care.</p>
           </div>
           <div class="stat-card">
             <span class="stat-value">1000+</span>
@@ -1146,7 +1332,8 @@
               <div class="contact-icon">📍</div>
               <div class="contact-detail-body">
                 <strong>Address</strong>
-                <span>Indrapuram, Ghaziabad, Uttar Pradesh, India</span>
+                <span>Plot No - 13, Nyay Khand I, Indirapuram, Ghaziabad, Uttar Pradesh 201020, India</span><br>
+                <a href="https://maps.app.goo.gl/QD3cZ29sLAt2zG9VA" target="_blank" rel="noopener noreferrer">Open clinic location in Google Maps</a>
               </div>
             </div>
             <div class="contact-detail">
@@ -1284,7 +1471,7 @@
     <div class="container footer-inner">
       <div>
         <div class="footer-brand">NeoMotion PhysioTherapy</div>
-        <p>&copy; <span id="current-year"></span> NeoMotion PhysioTherapy, Indrapuram, Ghaziabad. For informational purposes only — not a substitute for professional medical advice.</p>
+        <p>&copy; <span id="current-year"></span> NeoMotion PhysioTherapy, Ghaziabad. For informational purposes only — not a substitute for professional medical advice.</p>
       </div>
       <nav class="footer-links" aria-label="Legal links">
         <a href="#">Privacy Policy</a>
@@ -1313,6 +1500,7 @@
     <button class="chatbot-toggle" id="chatbot-toggle" type="button" aria-expanded="false" aria-controls="chatbot" aria-label="Open assistant">💬</button>
   </aside>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // ── Validation helpers ──────────────────────────
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1358,6 +1546,60 @@
       return names;
     }
     const services = populateServiceOptions();
+
+    // ── Hero carousel ───────────────────────────────
+    const heroCarousel = document.getElementById("heroCarousel");
+    const heroSlides = Array.from(heroCarousel.querySelectorAll(".hero-slide"));
+    const heroDots = Array.from(heroCarousel.querySelectorAll(".hero-carousel-dot"));
+    const heroPrev = heroCarousel.querySelector("[data-slide-dir='prev']");
+    const heroNext = heroCarousel.querySelector("[data-slide-dir='next']");
+    let heroIndex = 0;
+    let heroTimer;
+
+    function showHeroSlide(index) {
+      heroIndex = (index + heroSlides.length) % heroSlides.length;
+      heroSlides.forEach((slide, slideIndex) => {
+        slide.classList.toggle("active", slideIndex === heroIndex);
+      });
+      heroDots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === heroIndex;
+        dot.classList.toggle("active", isActive);
+        dot.setAttribute("aria-current", isActive ? "true" : "false");
+      });
+    }
+
+    function startHeroTimer() {
+      heroTimer = window.setInterval(() => {
+        showHeroSlide(heroIndex + 1);
+      }, 6500);
+    }
+
+    function resetHeroTimer() {
+      window.clearInterval(heroTimer);
+      startHeroTimer();
+    }
+
+    heroPrev.addEventListener("click", () => {
+      showHeroSlide(heroIndex - 1);
+      resetHeroTimer();
+    });
+
+    heroNext.addEventListener("click", () => {
+      showHeroSlide(heroIndex + 1);
+      resetHeroTimer();
+    });
+
+    heroDots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        showHeroSlide(Number(dot.dataset.slideTo));
+        resetHeroTimer();
+      });
+    });
+
+    heroCarousel.addEventListener("mouseenter", () => window.clearInterval(heroTimer));
+    heroCarousel.addEventListener("mouseleave", startHeroTimer);
+    showHeroSlide(0);
+    startHeroTimer();
 
     // ── Contact form ────────────────────────────────
     const contactForm = document.getElementById("contact-form");
