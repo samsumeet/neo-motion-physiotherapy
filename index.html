@@ -51,7 +51,10 @@
       body {
         margin: 0;
         font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: var(--bg);
+        background:
+          radial-gradient(circle at top left, rgba(13, 148, 136, 0.08), transparent 28%),
+          radial-gradient(circle at top right, rgba(124, 58, 237, 0.08), transparent 26%),
+          linear-gradient(180deg, #f8fafc 0%, #f4fbfa 44%, #ffffff 100%);
         color: var(--text);
         -webkit-font-smoothing: antialiased;
       }
@@ -261,6 +264,25 @@
         padding: 5.75rem 0;
       }
 
+      .section-tint {
+        position: relative;
+      }
+
+      .section-tint::before {
+        content: "";
+        position: absolute;
+        inset: 1rem 0;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(240, 253, 250, 0.9));
+        border-top: 1px solid rgba(15, 23, 42, 0.05);
+        border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+        pointer-events: none;
+      }
+
+      .section-tint > .container {
+        position: relative;
+        z-index: 1;
+      }
+
       .section-header {
         max-width: 640px;
         margin-bottom: 3rem;
@@ -350,8 +372,8 @@
 
       .hero-grid {
         display: grid;
-        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-        gap: 3rem;
+        grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.82fr);
+        gap: 2.25rem;
         align-items: center;
         position: relative;
         z-index: 1;
@@ -360,22 +382,52 @@
       .hero-copy {
         display: grid;
         gap: 1.2rem;
+        max-width: 640px;
+      }
+
+      .hero-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        width: fit-content;
+        padding: 0.45rem 0.85rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(13, 148, 136, 0.15);
+        box-shadow: var(--shadow-xs);
+        color: var(--primary-dark);
+        font-size: 0.84rem;
+        font-weight: 700;
+      }
+
+      .hero-kicker span {
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
       }
 
       .hero-copy h1 {
         max-width: 9.5ch;
       }
 
+      .hero-copy .lead,
+      .hero-copy p {
+        max-width: 58ch;
+      }
+
       .hero-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 0.8rem;
+        align-items: center;
       }
 
       .hero-points {
         display: flex;
         flex-wrap: wrap;
         gap: 0.7rem;
+        align-items: center;
       }
 
       .hero-point {
@@ -401,10 +453,33 @@
         box-shadow: 0 0 0 5px rgba(15, 118, 110, 0.1);
       }
 
-      .hero-gallery {
+      .hero-metrics {
         display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 1rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.9rem;
+        align-items: stretch;
+      }
+
+      .metric-card {
+        padding: 1rem 1.05rem;
+        border-radius: 22px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 252, 251, 0.92));
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .metric-card strong {
+        display: block;
+        font-size: 1.3rem;
+        letter-spacing: -0.04em;
+      }
+
+      .metric-card span {
+        display: block;
+        margin-top: 0.2rem;
+        color: var(--muted);
+        font-size: 0.88rem;
+        line-height: 1.5;
       }
 
       .hero-card,
@@ -423,43 +498,156 @@
         overflow: hidden;
         min-height: 100%;
         transition: transform 200ms ease, box-shadow 200ms ease;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(15, 23, 42, 0.02)),
+          rgba(255, 255, 255, 0.96);
       }
 
       .hero-card:hover {
         transform: translateY(-3px);
+        box-shadow: 0 26px 54px rgba(15, 23, 42, 0.14);
       }
 
       .hero-card img {
         height: 100%;
-        min-height: 420px;
+        min-height: 350px;
         object-fit: cover;
       }
 
-      .hero-stack {
-        display: grid;
-        gap: 1rem;
+      .hero-gallery {
+        position: relative;
+        width: 100%;
+        max-width: 340px;
+        margin-left: auto;
       }
 
-      .hero-stack .hero-card img {
-        min-height: 204px;
+      .hero-gallery .carousel,
+      .hero-gallery .carousel-inner,
+      .hero-gallery .carousel-item,
+      .hero-gallery .hero-card {
+        height: 100%;
       }
 
       .hero-caption {
         position: absolute;
-        left: 1rem;
-        bottom: 1rem;
-        z-index: 1;
+        left: 0.8rem;
+        top: 0.8rem;
+        bottom: auto;
+        z-index: 2;
         display: inline-flex;
-        padding: 0.45rem 0.7rem;
+        padding: 0.38rem 0.62rem;
         border-radius: 999px;
-        background: rgba(13, 24, 28, 0.6);
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         color: #fff;
-        font-size: 0.8rem;
+        font-size: 0.72rem;
         font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        border: 1px solid rgba(255, 255, 255, 0.22);
       }
 
       .hero-visual {
         position: relative;
+      }
+
+      .hero-visual::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.08) 0%, rgba(15, 23, 42, 0.42) 100%);
+        pointer-events: none;
+      }
+
+      .hero-gallery .carousel-control-prev,
+      .hero-gallery .carousel-control-next {
+        width: 2.35rem;
+        top: auto;
+        bottom: 0.75rem;
+        height: 2.35rem;
+        opacity: 1;
+      }
+
+      .hero-gallery .carousel-control-prev {
+        left: auto;
+        right: 3.55rem;
+      }
+
+      .hero-gallery .carousel-control-next {
+        right: 0.75rem;
+      }
+
+      .hero-gallery .carousel-control-prev-icon,
+      .hero-gallery .carousel-control-next-icon {
+        width: 2.35rem;
+        height: 2.35rem;
+        border-radius: 999px;
+        background-color: rgba(15, 23, 42, 0.68);
+        background-size: 0.78rem;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.24);
+      }
+
+      .hero-gallery .carousel-indicators {
+        margin-bottom: 0.75rem;
+        justify-content: flex-start;
+        margin-left: 0.85rem;
+        margin-right: 5.2rem;
+      }
+
+      .hero-gallery .carousel-indicators [data-bs-target] {
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 999px;
+        border: 0;
+        background-color: rgba(255, 255, 255, 0.72);
+      }
+
+      .hero-gallery .carousel-indicators .active {
+        background-color: #ffffff;
+      }
+
+      .hero-floating-card {
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+        z-index: 3;
+        width: min(220px, calc(100% - 0.8rem));
+        padding: 0.78rem 0.82rem;
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.74), rgba(15, 23, 42, 0.9));
+        color: #f8fafc;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        box-shadow: 0 24px 50px rgba(15, 23, 42, 0.28);
+        text-align: left;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .hero-floating-card strong {
+        display: block;
+        margin-bottom: 0.28rem;
+        font-size: 0.88rem;
+        line-height: 1.35;
+      }
+
+      .hero-floating-card p {
+        color: rgba(241, 245, 249, 0.84);
+        line-height: 1.45;
+        font-size: 0.72rem;
+        margin: 0;
+      }
+
+      .hero-floating-card .mini-badge {
+        display: inline-flex;
+        margin-top: 0.55rem;
+        padding: 0.28rem 0.48rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
       }
 
       .about-grid,
@@ -489,24 +677,62 @@
 
       .about-points {
         display: grid;
-        gap: 0.7rem;
-        padding: 1.1rem;
+        gap: 0.95rem;
+        padding: 1.35rem;
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(240, 253, 250, 0.92));
+        list-style: none;
+        margin: 0;
+      }
+
+      .about-points-panel {
+        overflow: hidden;
+      }
+
+      .about-points-head {
+        display: grid;
+        gap: 0.35rem;
+        padding: 1.2rem 1.25rem 0.35rem;
+      }
+
+      .about-points-head span {
+        display: inline-flex;
+        width: fit-content;
+        padding: 0.34rem 0.62rem;
+        border-radius: 999px;
+        background: var(--primary-light);
+        color: var(--primary-dark);
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .about-points-head p {
+        color: var(--muted);
+        line-height: 1.65;
       }
 
       .about-points li {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.85rem;
+        align-items: start;
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(15, 23, 42, 0.06);
+        box-shadow: var(--shadow-xs);
         color: var(--muted);
-        padding-left: 1.35rem;
-        position: relative;
       }
 
       .about-points li::before {
-        content: "•";
-        position: absolute;
-        left: 0;
-        top: -0.03rem;
-        color: var(--primary);
-        font-size: 1.15rem;
+        content: "";
+        width: 0.95rem;
+        height: 0.95rem;
+        margin-top: 0.22rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        box-shadow: 0 0 0 6px rgba(13, 148, 136, 0.1);
       }
 
       .services-grid,
@@ -536,9 +762,30 @@
         position: relative;
       }
 
+      .card-topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .card-label {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.34rem 0.68rem;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: #5b21b6;
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
       .card-icon {
         font-size: 1.5rem;
-        margin-bottom: 0.8rem;
+        margin-bottom: 0;
       }
 
       .card p,
@@ -632,6 +879,32 @@
       .stat-card:hover::after {
         opacity: 1;
         transform: scaleX(1);
+      }
+
+      .service-points {
+        display: grid;
+        gap: 0.45rem;
+        margin-top: 1rem;
+        padding: 0;
+        list-style: none;
+      }
+
+      .service-points li {
+        position: relative;
+        padding-left: 1rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .service-points li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.58rem;
+        width: 0.38rem;
+        height: 0.38rem;
+        border-radius: 999px;
+        background: var(--primary);
       }
 
       .hours-table {
@@ -729,6 +1002,81 @@
         font-weight: 700;
       }
 
+      .info-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        margin-top: 1.1rem;
+      }
+
+      .info-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-xs);
+        color: var(--text);
+        font-size: 0.86rem;
+        font-weight: 700;
+      }
+
+      .booking-side-card {
+        margin-top: 1.5rem;
+        padding: 1.2rem;
+        border-radius: var(--radius);
+        background: linear-gradient(160deg, rgba(13, 148, 136, 0.08), rgba(124, 58, 237, 0.08));
+        border: 1px solid rgba(13, 148, 136, 0.12);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .booking-side-card h3 {
+        margin-bottom: 0.65rem;
+      }
+
+      .booking-steps {
+        display: grid;
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+
+      .booking-step {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.75rem;
+        align-items: start;
+      }
+
+      .booking-step strong {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 14px;
+        background: #fff;
+        color: var(--primary-dark);
+        box-shadow: var(--shadow-xs);
+        font-size: 0.88rem;
+      }
+
+      .booking-step span {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .form-card.highlight-card {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(240, 253, 250, 0.96));
+      }
+
+      .section-header .subcopy {
+        margin-top: 0.9rem;
+        color: var(--muted-soft);
+        font-size: 0.96rem;
+      }
+
       .footer {
         padding: 2rem 0 3rem;
         border-top: 1px solid rgba(22, 54, 61, 0.08);
@@ -762,9 +1110,22 @@
           grid-template-columns: 1fr;
         }
 
-        .hero-gallery,
-        .form-grid {
+        .form-grid,
+        .hero-metrics {
           grid-template-columns: 1fr;
+        }
+
+        .hero-copy,
+        .hero-gallery {
+          max-width: none;
+        }
+
+        .hero-gallery {
+          margin-left: 0;
+        }
+
+        .hero-floating-card {
+          width: min(220px, calc(100% - 0.8rem));
         }
 
         .nav {
@@ -805,6 +1166,12 @@
         .nav-shell .btn {
           display: none;
         }
+
+        .hero-floating-card {
+          position: static;
+          margin-top: 1rem;
+          width: 100%;
+        }
       }
 
       @media (max-width: 680px) {
@@ -817,11 +1184,11 @@
         }
 
         .hero-card img {
-          min-height: 260px;
+        min-height: 280px;
         }
 
-        .hero-stack .hero-card img {
-          min-height: 220px;
+        .hero-gallery {
+          max-width: 100%;
         }
 
         .footer-row {
@@ -868,6 +1235,7 @@
       <section class="section hero" id="home">
         <div class="container hero-grid">
           <div class="hero-copy">
+            <div class="hero-kicker"><span></span> Personalized physiotherapy in Indirapuram</div>
             <span class="eyebrow">Physiotherapy Clinic</span>
             <h1>Move Better. Live Pain-Free.</h1>
             <p class="lead">
@@ -883,22 +1251,70 @@
               <span class="hero-point">45-minute sessions</span>
               <span class="hero-point">Personalized recovery plans</span>
             </div>
+            <div class="hero-metrics">
+              <div class="metric-card">
+                <strong>1:1 Care</strong>
+                <span>Dedicated therapist attention from assessment to recovery plan.</span>
+              </div>
+              <div class="metric-card">
+                <strong>Same-Day</strong>
+                <span>Flexible scheduling support with real-time availability checks.</span>
+              </div>
+              <div class="metric-card">
+                <strong>Holistic Rehab</strong>
+                <span>Hands-on treatment, exercise therapy, and home guidance together.</span>
+              </div>
+            </div>
           </div>
 
           <div class="hero-gallery">
-            <div class="hero-card hero-visual">
-              <img src="img/IMG_20260316_192809_721.WEBP" alt="NeoMotion clinic treatment room with physiotherapy equipment and patient exercise area" />
-              <span class="hero-caption">Clinic Treatment Room</span>
-            </div>
-            <div class="hero-stack">
-              <div class="hero-card hero-visual">
-                <img src="img/IMG_20260322_192838.JPG" alt="Therapist guiding a patient through treatment on a clinic bed" />
-                <span class="hero-caption">Therapist-Guided Care</span>
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
               </div>
-              <div class="hero-card hero-visual">
-                <img src="img/IMG_20260321_184011.JPG" alt="Physiotherapy treatment session in progress with a therapist assisting a patient" />
-                <span class="hero-caption">Active Recovery Session</span>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="hero-card hero-visual">
+                    <img src="img/IMG_20260316_192809_721.WEBP" alt="NeoMotion clinic treatment room with physiotherapy equipment and patient exercise area" />
+                    <span class="hero-caption">Clinic Treatment Room</span>
+                    <div class="hero-floating-card">
+                      <strong>Trusted recovery support</strong>
+                      <p>Comfortable clinic environment, guided sessions, and practical treatment plans that fit real daily routines.</p>
+                      <span class="mini-badge">Recovery-first approach</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="hero-card hero-visual">
+                    <img src="img/IMG_20260322_192838.JPG" alt="Therapist guiding a patient through treatment on a clinic bed" />
+                    <span class="hero-caption">Therapist-Guided Care</span>
+                    <div class="hero-floating-card">
+                      <strong>Hands-on treatment sessions</strong>
+                      <p>Focused support for mobility, pain relief, and guided exercise progression tailored to each patient.</p>
+                      <span class="mini-badge">One-on-one attention</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="hero-card hero-visual">
+                    <img src="img/IMG_20260321_184011.JPG" alt="Physiotherapy treatment session in progress with a therapist assisting a patient" />
+                    <span class="hero-caption">Active Recovery Session</span>
+                    <div class="hero-floating-card">
+                      <strong>Designed for real progress</strong>
+                      <p>Rehabilitation plans are built to improve movement quality in everyday routines, sport, and work life.</p>
+                      <span class="mini-badge">Movement-focused care</span>
+                    </div>
+                  </div>
+                </div>
               </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev" aria-label="Previous slide">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next" aria-label="Next slide">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
             </div>
           </div>
         </div>
@@ -914,12 +1330,22 @@
                 NeoMotion PhysioTherapy combines hands-on treatment, structured rehabilitation, and clear patient guidance to help people recover with confidence.
                 We work with pain management, injury recovery, posture issues, sports rehab, and functional mobility improvement.
               </p>
+              <p class="subcopy">We blend calm clinical spaces with clear communication so every visit feels reassuring, organized, and progress-driven.</p>
             </div>
             <p>
               Location: Plot No - 13, Nyay Khand I, Indirapuram, Ghaziabad, Uttar Pradesh 201020, India.
             </p>
+            <div class="info-strip">
+              <span class="info-pill">Modern treatment space</span>
+              <span class="info-pill">Rehab + home exercise planning</span>
+              <span class="info-pill">Sports and pain recovery care</span>
+            </div>
           </div>
-          <div class="hero-card">
+          <div class="hero-card about-points-panel">
+            <div class="about-points-head">
+              <span>Why patients choose us</span>
+              <p>Every treatment plan is built to feel clear, supportive, and easy to follow from the first visit onward.</p>
+            </div>
             <ul class="about-points">
               <li>Evidence-based treatment plans tailored to each patient.</li>
               <li>Sports rehab and post-surgery recovery support.</li>
@@ -930,43 +1356,86 @@
         </div>
       </section>
 
-      <section class="section" id="services">
+      <section class="section section-tint" id="services">
         <div class="container">
           <div class="section-header">
             <span class="eyebrow">Services</span>
             <h2>Core physiotherapy services</h2>
             <p>Professional support for rehabilitation, pain relief, movement quality, and recovery planning.</p>
+            <p class="subcopy">Each service is delivered with assessment-led treatment and practical recommendations you can actually follow outside the clinic.</p>
           </div>
           <div class="services-grid">
             <article class="card" data-service="Manual Therapy">
-              <div class="card-icon">👐</div>
+              <div class="card-topline">
+                <span class="card-label">Mobility</span>
+                <div class="card-icon">👐</div>
+              </div>
               <h3>Manual Therapy</h3>
               <p>Hands-on treatment to improve mobility, reduce stiffness, and support pain relief.</p>
+              <ul class="service-points">
+                <li>Joint mobility and stiffness relief</li>
+                <li>Targeted manual techniques</li>
+              </ul>
             </article>
             <article class="card" data-service="Sports Injury Rehabilitation">
-              <div class="card-icon">🏃</div>
+              <div class="card-topline">
+                <span class="card-label">Performance</span>
+                <div class="card-icon">🏃</div>
+              </div>
               <h3>Sports Injury Rehabilitation</h3>
               <p>Structured recovery programs for sprains, muscle strain, overuse injuries, and return to activity.</p>
+              <ul class="service-points">
+                <li>Return-to-sport planning</li>
+                <li>Strength and movement recovery</li>
+              </ul>
             </article>
             <article class="card" data-service="Post-surgery Rehabilitation">
-              <div class="card-icon">🩺</div>
+              <div class="card-topline">
+                <span class="card-label">Recovery</span>
+                <div class="card-icon">🩺</div>
+              </div>
               <h3>Post-surgery Rehabilitation</h3>
               <p>Functional rehabilitation support after orthopaedic or mobility-related surgical procedures.</p>
+              <ul class="service-points">
+                <li>Safe progression after surgery</li>
+                <li>Function-focused rehab milestones</li>
+              </ul>
             </article>
             <article class="card" data-service="Back and Neck Pain Management">
-              <div class="card-icon">🧍</div>
+              <div class="card-topline">
+                <span class="card-label">Pain Relief</span>
+                <div class="card-icon">🧍</div>
+              </div>
               <h3>Back and Neck Pain Management</h3>
               <p>Assessment and treatment for posture-linked pain, stiffness, and daily movement discomfort.</p>
+              <ul class="service-points">
+                <li>Posture-aware treatment planning</li>
+                <li>Daily movement habit improvement</li>
+              </ul>
             </article>
             <article class="card" data-service="Posture and Ergonomic Training">
-              <div class="card-icon">💺</div>
+              <div class="card-topline">
+                <span class="card-label">Lifestyle</span>
+                <div class="card-icon">💺</div>
+              </div>
               <h3>Posture and Ergonomic Training</h3>
               <p>Simple correction strategies for work habits, sitting posture, and repetitive strain prevention.</p>
+              <ul class="service-points">
+                <li>Desk and posture corrections</li>
+                <li>Long-term strain prevention</li>
+              </ul>
             </article>
             <article class="card" data-service="Home Exercise Programs">
-              <div class="card-icon">📋</div>
+              <div class="card-topline">
+                <span class="card-label">Continuity</span>
+                <div class="card-icon">📋</div>
+              </div>
               <h3>Home Exercise Programs</h3>
               <p>Custom exercise plans to continue treatment progress safely between clinic visits.</p>
+              <ul class="service-points">
+                <li>Clinic-to-home continuity</li>
+                <li>Clear, realistic exercise guidance</li>
+              </ul>
             </article>
           </div>
         </div>
@@ -1028,7 +1497,7 @@
         </div>
       </section>
 
-      <section class="section" id="testimonials">
+      <section class="section section-tint" id="testimonials">
         <div class="container">
           <div class="section-header">
             <span class="eyebrow">Testimonials</span>
@@ -1059,11 +1528,17 @@
               <span class="eyebrow">Contact</span>
               <h2>Visit or contact the clinic</h2>
               <p>Reach out for treatment questions, appointment support, or directions to the clinic.</p>
+              <p class="subcopy">We aim to keep communication clear and fast, whether you need location help, treatment guidance, or appointment assistance.</p>
             </div>
             <p><strong>Address:</strong><br />Plot No - 13, Nyay Khand I, Indirapuram, Ghaziabad, Uttar Pradesh 201020, India</p>
             <p><strong>Phone:</strong><br /><a href="tel:+919999999999">+91 99999 99999</a></p>
             <p><strong>Email:</strong><br /><a href="mailto:info@neomotion-physio.de">info@neomotion-physio.de</a></p>
             <a class="map-link" href="https://maps.app.goo.gl/QD3cZ29sLAt2zG9VA" target="_blank" rel="noreferrer">Open clinic location in Google Maps</a>
+            <div class="info-strip">
+              <span class="info-pill">Walk-ins welcome</span>
+              <span class="info-pill">Easy map access</span>
+              <span class="info-pill">Phone and email support</span>
+            </div>
             <div style="margin-top: 1.2rem;">
               <h3 style="margin-bottom: 0.8rem;">Opening Hours</h3>
               <table class="hours-table">
@@ -1075,7 +1550,7 @@
             </div>
           </div>
 
-          <div class="form-card">
+          <div class="form-card highlight-card">
             <h3 style="margin-bottom: 1rem;">Send a message</h3>
             <form id="contact-form" novalidate>
               <div class="form-grid">
@@ -1112,7 +1587,7 @@
         </div>
       </section>
 
-      <section class="section" id="book">
+      <section class="section section-tint" id="book">
         <div class="container booking-grid">
           <div class="booking-copy">
             <div class="section-header">
@@ -1121,10 +1596,29 @@
               <p>
                 Select your preferred service, date, and one of the currently available time slots. Bookings are checked live against the clinic schedule before confirmation.
               </p>
+              <p class="subcopy">A smooth booking experience matters too, so we keep the process short, clear, and centered around real-time slot availability.</p>
+            </div>
+            <div class="booking-side-card">
+              <h3>What happens next</h3>
+              <p class="lead">Once you submit a request, the clinic confirms your slot and follows up with the right preparation details.</p>
+              <div class="booking-steps">
+                <div class="booking-step">
+                  <strong>1</strong>
+                  <span>Choose your service, preferred date, and an open appointment time.</span>
+                </div>
+                <div class="booking-step">
+                  <strong>2</strong>
+                  <span>Your request is checked against the live clinic schedule before confirmation.</span>
+                </div>
+                <div class="booking-step">
+                  <strong>3</strong>
+                  <span>You receive confirmation by phone or email, along with any next steps.</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="form-card">
+          <div class="form-card highlight-card">
             <form id="booking-form" novalidate>
               <div class="form-grid">
                 <div class="field">
@@ -1190,6 +1684,7 @@
       </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       const serviceCards = Array.from(document.querySelectorAll("[data-service]"));
       const siteHeader = document.querySelector(".site-header");
